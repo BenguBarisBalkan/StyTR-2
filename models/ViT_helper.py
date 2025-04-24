@@ -30,8 +30,9 @@ class DropPath(nn.Module):
         return drop_path(x, self.drop_prob, self.training)
 
 from itertools import repeat
-from torch._six import container_abcs
-
+#from torch._six import container_abcs
+import collections.abc as container_abcs
+int_classes = int
 
 # From PyTorch internals
 def _ntuple(n):
