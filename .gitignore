@@ -1,4 +1,2 @@
-decoder_iter_160000.pth
-embedding_iter_160000.pth
-transformer_iter_160000.pth
-vgg_normalised.pth
+experiments/
+results/

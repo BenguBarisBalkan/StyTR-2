@@ -156,28 +156,28 @@ style_tf = test_transform(style_size, crop)
 for content_path in content_paths:
     for style_path in style_paths:
         print(content_path)
-       
-      
+
         content_tf1 = content_transform()       
         content = content_tf(Image.open(content_path).convert("RGB"))
-
-        h,w,c=np.shape(content)    
-        style_tf1 = style_transform(h,w)
+        h, w, c = np.shape(content)    
+        style_tf1 = style_transform(h, w)
         style = style_tf(Image.open(style_path).convert("RGB"))
 
-      
         style = style.to(device).unsqueeze(0)
         content = content.to(device).unsqueeze(0)
-        
+
         with torch.no_grad():
-            output= network(content,style)       
+            output = network(content, style)
+
+        # If output is a tuple, access the first element
+        if isinstance(output, tuple):
+            output = output[0]
+
         output = output.cpu()
-                
+
         output_name = '{:s}/{:s}_stylized_{:s}{:s}'.format(
             output_path, splitext(basename(content_path))[0],
             splitext(basename(style_path))[0], save_ext
         )
- 
-        save_image(output, output_name)
-   
 
+        save_image(output, output_name)
